@@ -37,7 +37,7 @@ namespace razorgripassignmentapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options => options.AddPolicy("rgripdefault", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+            services.AddCors(options => options.AddPolicy("rgripdefault", builder => builder.WithOrigins(new string[] { "http://localhost:4200/", "https://razorgripinterviewfrontend.herokuapp.com/" }).AllowAnyHeader().AllowCredentials().SetIsOriginAllowed((host) => true).AllowAnyMethod()));
 
             //GearHost
             services.AddDbContext<RazorgripDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Azure"), i => i.EnableRetryOnFailure()), ServiceLifetime.Transient);
